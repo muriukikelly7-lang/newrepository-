@@ -163,7 +163,7 @@ flightDetailsForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const details = new FormData(flightDetailsForm);
   const message = `Hello Skyward, I would like flight options. ${flightSummary.textContent} Name: ${details.get('name')}. Phone: ${details.get('phone')}. Email: ${details.get('email')}.`;
-  window.location.href = `https://wa.me/254738844990?text=${encodeURIComponent(message)}`;
+  window.location.href = `https://wa.me/254755528986?text=${encodeURIComponent(message)}`;
 });
 
 document.querySelector('.menu-button').addEventListener('click', () => {
