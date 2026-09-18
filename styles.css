@@ -141,16 +141,165 @@ input[type='radio'] { accent-color: var(--orange); }
 	.hero.booking-open .chat-avatar { right: -8px; width: 42px; height: 42px; }
 }
 
-.hero.booking-open .booking-shell { background: rgba(255,255,255,.96); color: #1d2d35; padding: 0 10px 10px; max-width: 100%; box-shadow: none; border: 3px solid #ed2029; border-top: 0; }
-.hero.booking-open .booking-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin: 0 -10px; padding: 0; border: 0; }
-.hero.booking-open .booking-tab { min-height: 54px; padding: 8px 5px; border: 0; background: rgba(255,255,255,.86); color: #34434a; text-transform: uppercase; font: 10px Georgia, serif; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
-.hero.booking-open .booking-tab span { font-size: 16px; }.hero.booking-open .booking-tab.selected { background: #ed2029; color: white; }
-.hero.booking-open .trip-options { justify-content: center; gap: 8px; padding: 12px 0 16px; }
-.hero.booking-open .trip-pill { border: 0; border-radius: 5px; padding: 5px 12px; background: rgba(255,255,255,.35); color: white; font: 10px Georgia, serif; }.hero.booking-open .trip-pill.active { background: white; color: #ed2029; }
-.hero.booking-open .search-grid { grid-template-columns: 1fr 1fr; gap: 4px; }
-.hero.booking-open .field { min-height: 50px; padding: 7px 9px; border: 0; background: white; color: #2e3b40; }.hero.booking-open .field span { color: #536168; font: 10px Georgia, serif; margin-bottom: 6px; }.hero.booking-open .field strong { font: 13px Georgia, serif; }.hero.booking-open .location-field { grid-column: span 1; }.hero.booking-open .date-field { grid-column: span 1; }.hero.booking-open .passenger-field, .hero.booking-open .promo-field, .hero.booking-open .currency-field { grid-column: span 2; }.hero.booking-open .passenger-field span { font-size: 9px; }.hero.booking-open .promo-field { min-height: 57px; }.hero.booking-open .currency-field { min-height: 52px; }.hero.booking-open .swap-button { margin: 25px 0 0 47.5%; width: 25px; height: 25px; background: #f4a0a5; color: white; border: 0; }
-.hero.booking-open .search-button { grid-column: span 2; min-height: 35px; margin-top: 8px; border: 1px solid white; border-radius: 20px; background: transparent; color: white; font: 12px Georgia, serif; }
-.hero.booking-open .search-message { color: white; margin: 4px 0 0; }
+.hero.booking-open .booking-shell {
+  background: rgba(255,255,255,.96);
+  color: #1d2d35;
+  padding: 0 18px 18px;
+  max-width: 1040px;
+  width: min(1040px, calc(100vw - 160px));
+  margin: 0 auto;
+  box-shadow: 0 16px 28px rgba(9,30,36,.12);
+  border: 3px solid #eb1f2c;
+  border-top: 0;
+  position: relative;
+  z-index: 2;
+}
+.hero.booking-open .booking-tabs {
+  display: flex;
+  gap: 30px;
+  margin: 0 -18px;
+  padding: 0 18px;
+  border-bottom: 1px solid rgba(17,38,44,.15);
+}
+.hero.booking-open .booking-tab {
+  min-height: 0;
+  padding: 19px 0 15px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--ink);
+  text-transform: none;
+  font: 700 13px 'DM Sans', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.hero.booking-open .booking-tab span { font-size: inherit; }
+.hero.booking-open .booking-tab.selected {
+  background: transparent;
+  color: #eb1f2c;
+  border-color: #eb1f2c;
+}
+.hero.booking-open .trip-options {
+  justify-content: flex-start;
+  gap: 22px;
+  padding: 18px 0 15px;
+}
+.hero.booking-open .trip-pill {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--ink);
+  font: 400 12px 'DM Sans', sans-serif;
+}
+.hero.booking-open .trip-pill.active {
+  background: transparent;
+  color: var(--orange);
+  font-weight: 700;
+}
+.hero.booking-open .search-grid {
+  grid-template-columns: 1.35fr 1.35fr 1fr 1fr .95fr auto;
+  gap: 8px;
+}
+.hero.booking-open .field {
+  min-height: 59px;
+  padding: 11px 14px 12px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+}
+.hero.booking-open .field span {
+  color: #748080;
+  font: 400 10px 'DM Sans', sans-serif;
+  margin-bottom: 7px;
+}
+.hero.booking-open .search-button {
+  grid-column: auto;
+  min-height: 59px;
+  margin-top: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--orange);
+  color: white;
+  font: 700 12px 'DM Sans', sans-serif;
+}
+.hero.booking-open .swap-button {
+  margin: 17px 0 0 22.6%;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.hero.booking-open .search-message { color: var(--orange); margin: 10px 0 0; }
+
+.reference-booking-bar {
+  position: absolute;
+  right: 30px;
+  bottom: 24px;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+}
+.quick-tile {
+  border: 0;
+  background: rgba(255,255,255,.88);
+  color: #304047;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font: 11px Georgia, serif;
+  min-width: 138px;
+  min-height: 68px;
+}
+.quick-tile-active {
+  background: #ed2029;
+  color: white;
+}
+.chat-bubble {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 210px;
+  height: 62px;
+  padding: 0 34px 0 15px;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 2px 12px rgba(0,0,0,.2);
+  color: #425057;
+  font: 14px Georgia, serif;
+  text-align: left;
+}
+.chat-bubble::after {
+  content: '';
+  position: absolute;
+  left: -9px;
+  top: 22px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 10px solid white;
+}
+.chat-bubble strong, .chat-bubble span { position: relative; z-index: 1; display: block; }
+.chat-bubble strong { font-size: 12px; font-weight: 700; color: #314148; }
+.chat-bubble span { font-size: 12px; color: #7c8183; margin-top: 5px; }
+.chat-avatar {
+  position: absolute;
+  right: -54px;
+  top: 3px;
+  width: 52px;
+  height: 52px;
+  padding: 3px;
+  object-fit: cover;
+  border: 3px solid var(--orange);
+  border-radius: 50%;
+  background: white;
+}
 
 
 .booking-panel, .status-panel { padding-top: 8px; }

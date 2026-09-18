@@ -191,7 +191,8 @@ flightDetailsForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const details = new FormData(flightDetailsForm);
   const specialRequest = details.get('specialRequest')?.trim() || 'None';
-  const message = `Hello Skyward, I would like flight options. ${flightSummary.textContent} Name: ${details.get('name')}. Phone: ${details.get('phone')}. Email: ${details.get('email')}. Special request: ${specialRequest}.`;
+  const idNumber = details.get('idNumber')?.trim() || 'Not provided';
+  const message = `Hello Skyward, I would like flight options. ${flightSummary.textContent} Name: ${details.get('name')}. Phone: ${details.get('phone')}. Email: ${details.get('email')}. ID/Passport: ${idNumber}. Special request: ${specialRequest}.`;
   window.location.href = `https://wa.me/254755528986?text=${encodeURIComponent(message)}`;
 });
 
