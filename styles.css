@@ -280,6 +280,8 @@ input[type='radio'] { accent-color: var(--orange); }
 
 .hero.booking-open .reference-booking-bar { display: block !important; }
 .hero.booking-open .reference-booking-bar .quick-tile { display: none !important; }
+.hero.booking-open .reference-booking-bar { right: 55px; }
+.hero.booking-open .chat-avatar { right: -35px; }
 
 @media (max-width: 850px) {
 	.hero.booking-open .booking-shell { border-color: #ed1c24; background: rgba(255,255,255,.98); }
