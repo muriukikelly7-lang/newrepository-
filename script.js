@@ -251,6 +251,11 @@ document.querySelector('.quick-tile:not(.quick-tile-active)').addEventListener('
   hero.classList.remove('booking-open');
 });
 
+document.querySelector('.chat-bubble').addEventListener('click', () => {
+  const message = encodeURIComponent('Hello Skyward, I need help with my booking.');
+  window.location.href = `https://wa.me/254755528986?text=${message}`;
+});
+
 passengerSummary.addEventListener('click', () => {
   passengerPopover.hidden = !passengerPopover.hidden;
 });
