@@ -448,3 +448,68 @@ input[type='radio'] { accent-color: var(--orange); }
 .chat-bubble strong, .chat-bubble span { position: relative; z-index: 1; display: block; }
 .chat-bubble::after { content: ''; position: absolute; right: -9px; top: 22px; width: 0; height: 0; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 10px solid white; }
 .chat-avatar { right: -73px; top: 2px; width: 56px; height: 56px; padding: 3px; object-fit: cover; border: 3px solid var(--orange); border-radius: 50%; background: white; }
+
+@media (max-width: 850px) {
+	.hero.booking-open .search-grid {
+		grid-template-columns: 1fr 1fr;
+		gap: 6px;
+	}
+	.hero.booking-open .swap-button {
+		margin: 17px 0 0 45%;
+	}
+	.hero.booking-open .search-button {
+		grid-column: span 2;
+		min-height: 52px;
+	}
+}
+
+@media (max-width: 520px) {
+	.hero.booking-open .booking-shell {
+		width: calc(100vw - 24px);
+		max-width: none;
+		transform: none;
+		margin: 0 auto;
+		padding: 0 12px 15px;
+	}
+	.hero.booking-open .booking-tabs {
+		gap: 12px;
+		margin: 0 -12px;
+		padding: 0 12px;
+		justify-content: space-between;
+	}
+	.hero.booking-open .booking-tab {
+		font-size: 11px;
+		gap: 4px;
+	}
+	.hero.booking-open .search-grid {
+		grid-template-columns: 1fr 1fr;
+		gap: 6px;
+	}
+	.hero.booking-open .location-field,
+	.hero.booking-open .return-field,
+	.hero.booking-open .passenger-field,
+	.hero.booking-open .promo-field,
+	.hero.booking-open .currency-field,
+	.hero.booking-open .search-button {
+		grid-column: span 2;
+	}
+	.hero.booking-open .swap-button {
+		margin: 70px 0 0 45%;
+	}
+	.hero.booking-open .reference-booking-bar {
+		right: 12px;
+		width: min(205px, calc(100vw - 80px));
+	}
+	.hero.booking-open .chat-bubble {
+		width: 100%;
+	}
+	.flight-modal {
+		padding: 12px;
+		place-items: start center;
+	}
+	.flight-dialog {
+		width: 100%;
+		max-height: calc(100vh - 24px);
+		padding: 24px 18px;
+	}
+}
