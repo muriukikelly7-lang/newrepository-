@@ -507,6 +507,12 @@ input[type='radio'] { accent-color: var(--orange); }
 	.hero.booking-open .chat-bubble {
 		width: 100%;
 	}
+	.hero.booking-open .chat-avatar {
+		right: -8px;
+		top: 4px;
+		width: 42px;
+		height: 42px;
+	}
 	.flight-modal {
 		padding: 12px;
 		place-items: start center;
