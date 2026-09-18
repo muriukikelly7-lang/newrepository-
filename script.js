@@ -10,16 +10,29 @@ const passengerPopover = document.querySelector('.passenger-popover');
 const heroTitle = document.querySelector('.hero-content h1');
 const heroCopy = document.querySelector('.hero-copy');
 const heroEyebrow = document.querySelector('.hero-content .eyebrow');
+const heroCta = document.querySelector('.hero-cta');
+const routeFares = {
+  'nairobi|garissa': 7000,
+  'nairobi|mandera': 6000,
+  'nairobi|homabay': 7000,
+  'nairobi|migori': 6000,
+  'nairobi|kitale': 6000,
+  'nairobi|kisumu': 6500,
+  'nairobi|eldoret': 7000,
+  'nairobi|lodwar': 11500,
+  'nairobi|mombasa': 7000,
+  'nairobi|kakamega': 7000
+};
 const heroSlides = [
+  {
+    image: 'https://skywardairlines.com/storage/2026/01/Malindi-Skyward-Airlines-001-1.jpg',
+    title: 'Malindi, Now Daily',
+    copy: 'Introducing our new morning departure from JKIA.'
+  },
   {
     image: 'https://skywardairlines.com/storage/2026/02/Cheap-Flights-To-Garissa-Skyward-Airlines-006.jpg',
     title: 'Flights to Garissa',
     copy: 'Book your flight today for travel from August.<br>Flights operate every Monday, Wednesday, Friday & Sunday.'
-  },
-  {
-    image: 'https://skywardairlines.com/storage/2026/02/Slider-Mobile-Malindi.webp',
-    title: 'Malindi, Now Daily',
-    copy: 'Introducing our new morning departure from JKIA.'
   },
   {
     image: 'https://skywardairlines.com/storage/2026/02/Dar-Mobile-Slider-003.webp',
@@ -34,6 +47,21 @@ const heroSlides = [
 ];
 let activeSlide = 0;
 let slideTimer;
+
+function normalizeLocation(value) {
+  return value.toLowerCase().split('(')[0].trim();
+}
+
+function getRouteFare(departure, arrival) {
+  const key = `${normalizeLocation(departure)}|${normalizeLocation(arrival)}`;
+  return routeFares[key] || 7000;
+}
+
+function getPassengerCount() {
+  const count = [...passengerPopover.querySelectorAll('.passenger-row output')]
+    .reduce((total, output) => total + Number(output.value), 0);
+  return Math.max(count, 1);
+}
 
 function updateNairobiTime() {
   const now = new Date();
@@ -54,6 +82,7 @@ function updateNairobiTime() {
 updateNairobiTime();
 window.setInterval(updateNairobiTime, 60000);
 
+
 function showSlide(index) {
   activeSlide = (index + heroSlides.length) % heroSlides.length;
   const slide = heroSlides[activeSlide];
@@ -61,6 +90,7 @@ function showSlide(index) {
   hero.style.backgroundImage = `url('${slide.image}')`;
   heroTitle.textContent = slide.title;
   heroCopy.innerHTML = slide.copy;
+  heroCta.hidden = activeSlide !== 0;
   window.setTimeout(() => hero.classList.remove('is-changing'), 450);
 }
 
@@ -80,7 +110,6 @@ document.querySelector('.hero-arrow-right').addEventListener('click', () => {
 });
 
 showSlide(0);
-restartSlideTimer();
 
 tabs.forEach((tab) => {
   tab.addEventListener('click', () => {
@@ -107,14 +136,6 @@ document.querySelectorAll('.panel-action').forEach((button) => {
   });
 });
 
-    tripPills.forEach((pill) => {
-      pill.addEventListener('click', () => {
-        tripPills.forEach((item) => item.classList.remove('active'));
-        pill.classList.add('active');
-        searchMessage.textContent = `${pill.textContent.trim()} selected.`;
-      });
-    });
-
 document.querySelector('.swap-button').addEventListener('click', () => {
   const fields = document.querySelectorAll('.location-field input');
   const from = fields[0].value;
@@ -137,7 +158,14 @@ document.querySelector('.search-button').addEventListener('click', () => {
     return;
   }
   const dates = [...document.querySelectorAll('.date-field input')].map((input) => input.value);
-  flightSummary.textContent = `${locations[0]} to ${locations[1]}${dates[0] ? `, departing ${dates[0]}` : ''}${dates[1] ? ` and returning ${dates[1]}` : ''}.`;
+  const fare = getRouteFare(locations[0], locations[1]);
+  const passengerCount = getPassengerCount();
+  const totalFare = fare * passengerCount;
+  const formattedFare = `KSh ${totalFare.toLocaleString('en-KE')}`;
+  flightSummary.textContent = `${locations[0]} to ${locations[1]} for ${passengerCount} passenger${passengerCount === 1 ? '' : 's'}${dates[0] ? `, departing ${dates[0]}` : ''}${dates[1] ? ` and returning ${dates[1]}` : ''}.`;
+  const resultPrices = [...document.querySelectorAll('.flight-result')].map((result) => result.querySelectorAll('strong')[2]);
+  resultPrices[0].textContent = `From ${formattedFare}`;
+  resultPrices[1].textContent = `From KSh ${(totalFare + (1500 * passengerCount)).toLocaleString('en-KE')}`;
   flightMessage.textContent = '';
   document.querySelector('.flight-dialog h2').textContent = 'Choose your flight';
   flightResults.hidden = false;
@@ -162,14 +190,18 @@ document.querySelectorAll('.result-book-button').forEach((button) => {
 flightDetailsForm.addEventListener('submit', (event) => {
   event.preventDefault();
   const details = new FormData(flightDetailsForm);
-  const message = `Hello Skyward, I would like flight options. ${flightSummary.textContent} Name: ${details.get('name')}. Phone: ${details.get('phone')}. Email: ${details.get('email')}.`;
+  const specialRequest = details.get('specialRequest')?.trim() || 'None';
+  const message = `Hello Skyward, I would like flight options. ${flightSummary.textContent} Name: ${details.get('name')}. Phone: ${details.get('phone')}. Email: ${details.get('email')}. Special request: ${specialRequest}.`;
   window.location.href = `https://wa.me/254755528986?text=${encodeURIComponent(message)}`;
 });
 
 document.querySelector('.menu-button').addEventListener('click', () => {
   const nav = document.querySelector('.main-nav');
+  const menuButton = document.querySelector('.menu-button');
   const isOpen = nav.classList.toggle('open');
   nav.style.display = isOpen ? 'flex' : '';
+  menuButton.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+  menuButton.setAttribute('aria-expanded', String(isOpen));
 });
 
 document.querySelector('.language-button').addEventListener('click', (event) => {
@@ -186,7 +218,10 @@ document.querySelector('.quick-tile-active').addEventListener('click', () => {
 
 document.querySelector('.book-now-button').addEventListener('click', () => {
   hero.classList.add('booking-open');
-  hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelector('.booking-tab[data-tab="flights"]').click();
+  const bookingShell = document.querySelector('.booking-shell');
+  bookingShell.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  window.setTimeout(() => document.querySelector('.location-field input').focus(), 350);
 });
 
 const signupModal = document.querySelector('.signup-modal');
@@ -236,4 +271,12 @@ passengerPopover.querySelector('.passenger-accept').addEventListener('click', (e
   passengerSummary.value = `${values.adults + values.children + values.infants} passenger${values.adults + values.children + values.infants === 1 ? '' : 's'}`;
   passengerField.querySelector('span').textContent = `${values.adults} Adult, ${values.infants} Infant, ${values.children} Children`;
   passengerPopover.hidden = true;
+});
+
+tripPills.forEach((pill) => {
+  pill.addEventListener('click', () => {
+    tripPills.forEach((item) => item.classList.remove('active'));
+    pill.classList.add('active');
+    document.querySelector('.return-field').hidden = pill.textContent.trim() === 'One-way';
+  });
 });
