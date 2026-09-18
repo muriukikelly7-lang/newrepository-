@@ -380,7 +380,7 @@ input[type='radio'] { accent-color: var(--orange); }
 	@media (max-width: 850px) {
 		.weather-bar { height: 46px; }
 		.site-header { top: 46px; height: 98px; }
-		.hero.booking-open .booking-shell { display: none; }
+		.hero.booking-open .booking-shell { display: block; }
 		.hero.booking-open .hero-content { min-height: 500px; padding-bottom: 76px; }
 		.hero.booking-open .reference-booking-bar { display: block; position: fixed; right: 20px; bottom: 20px; left: auto; width: 205px; height: 62px; z-index: 35; }
 		.hero.booking-open .reference-booking-bar .quick-tile { display: none; }
