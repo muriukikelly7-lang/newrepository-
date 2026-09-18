@@ -280,8 +280,8 @@ input[type='radio'] { accent-color: var(--orange); }
 
 .hero.booking-open .reference-booking-bar { display: block !important; }
 .hero.booking-open .reference-booking-bar .quick-tile { display: none !important; }
-.hero.booking-open .reference-booking-bar { right: 55px; }
-.hero.booking-open .chat-avatar { right: -35px; }
+.hero.booking-open .reference-booking-bar { right: 20px; width: 270px; }
+.hero.booking-open .chat-avatar { right: -65px; }
 .hero.booking-open .chat-bubble { position: relative !important; left: 0 !important; right: auto !important; bottom: 0 !important; }
 
 @media (max-width: 850px) {
@@ -294,5 +294,6 @@ input[type='radio'] { accent-color: var(--orange); }
 	.hero.booking-open .search-button:hover { background: #c9161d; }
 }
 .chat-bubble { width: 202px; height: 60px; padding: 0 34px 0 15px; border-radius: 5px; box-shadow: 0 2px 12px rgba(0,0,0,.2); }
+.chat-bubble strong, .chat-bubble span { position: relative; z-index: 1; display: block; }
 .chat-bubble::after { content: ''; position: absolute; right: -9px; top: 22px; width: 0; height: 0; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 10px solid white; }
 .chat-avatar { right: -73px; top: 2px; width: 56px; height: 56px; padding: 3px; object-fit: cover; border: 3px solid var(--orange); border-radius: 50%; background: white; }
