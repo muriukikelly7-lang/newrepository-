@@ -226,6 +226,14 @@ document.querySelector('.book-now-button').addEventListener('click', () => {
   window.setTimeout(() => document.querySelector('.location-field input').focus(), 350);
 });
 
+heroCta.addEventListener('click', (event) => {
+  event.preventDefault();
+  hero.classList.add('booking-open');
+  document.querySelector('.booking-tab[data-tab="flights"]').click();
+  document.querySelector('.booking-shell').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  window.setTimeout(() => document.querySelector('.location-field input').focus(), 350);
+});
+
 const signupModal = document.querySelector('.signup-modal');
 const signupForm = document.querySelector('.signup-form');
 const newsletterForm = document.querySelector('.newsletter-form');
