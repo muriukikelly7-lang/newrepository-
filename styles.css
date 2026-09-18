@@ -465,7 +465,7 @@ input[type='radio'] { accent-color: var(--orange); }
 
 @media (max-width: 520px) {
 	.hero.booking-open .booking-shell {
-		width: calc(100vw - 24px);
+		width: calc(100vw - 48px);
 		max-width: none;
 		transform: none;
 		margin: 0 auto;
