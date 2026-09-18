@@ -110,6 +110,7 @@ document.querySelector('.hero-arrow-right').addEventListener('click', () => {
 });
 
 showSlide(0);
+restartSlideTimer();
 
 tabs.forEach((tab) => {
   tab.addEventListener('click', () => {
