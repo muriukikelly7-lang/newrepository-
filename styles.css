@@ -20,7 +20,7 @@ button { color: inherit; font: inherit; cursor: pointer; }
 .account-button { display: flex; align-items: center; gap: 8px; }
 .user-icon { font-size: 15px; }
 .menu-button { display: none; font-size: 22px; }
-.main-nav, .language-button, .account-button { display: none; }
+.main-nav, .language-button, .account-button { display: flex; }
 .hero { min-height: 694px; padding: 160px 5.5vw 42px; position: relative; color: white; background: url('https://skywardairlines.com/storage/2026/01/Malindi-Skyward-Airlines-001-1.jpg') center 45% / cover; display: flex; flex-direction: column; justify-content: space-between; }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16, 28, 36, .16), rgba(17, 24, 31, .30)), linear-gradient(90deg, rgba(150, 160, 160, .16), rgba(150, 160, 160, .12)); }
 .hero { transition: background-image .45s ease; }.hero.is-changing .hero-content { animation: hero-copy-in .45s ease; }
