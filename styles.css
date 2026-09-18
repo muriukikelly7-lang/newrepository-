@@ -480,6 +480,10 @@ input[type='radio'] { accent-color: var(--orange); }
 	.hero.booking-open .booking-tab {
 		font-size: 11px;
 		gap: 4px;
+		flex: 1 1 0;
+		min-width: 0;
+		padding-left: 2px;
+		padding-right: 2px;
 	}
 	.hero.booking-open .search-grid {
 		grid-template-columns: 1fr 1fr;
