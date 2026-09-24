@@ -151,6 +151,27 @@ const flightMessage = document.querySelector('.flight-message');
 const flightClose = document.querySelector('.flight-close');
 const flightResults = document.querySelector('.flight-results');
 const selectedFlight = document.querySelector('.selected-flight');
+const seatStep = document.querySelector('.seat-step');
+const modalSeatGrid = document.querySelector('.modal-seat-grid');
+const modalSeatMessage = document.querySelector('.modal-seat-message');
+const modalWhatsappButton = document.querySelector('.modal-whatsapp-button');
+const reservedSeats = new Set(['4B', '5C', '6B', '7A', '8D']);
+let passengerDetails;
+let selectedSeat;
+
+for (let row = 1; row <= 8; row += 1) {
+  for (const column of ['A', 'B', 'C', 'D']) {
+    const seatCode = `${row}${column}`;
+    const seat = document.createElement('button');
+    seat.type = 'button';
+    seat.className = `modal-seat${reservedSeats.has(seatCode) ? ' reserved' : ''}`;
+    seat.textContent = seatCode;
+    seat.dataset.seat = seatCode;
+    seat.disabled = reservedSeats.has(seatCode);
+    seat.setAttribute('aria-label', `${seatCode}${seat.disabled ? ', reserved' : ', available'}`);
+    modalSeatGrid.append(seat);
+  }
+}
 
 document.querySelector('.search-button').addEventListener('click', () => {
   const locations = [...document.querySelectorAll('.location-field input')].map((input) => input.value.trim());
@@ -168,6 +189,9 @@ document.querySelector('.search-button').addEventListener('click', () => {
   resultPrices[0].textContent = `From ${formattedFare}`;
   resultPrices[1].textContent = `From KSh ${(totalFare + (1500 * passengerCount)).toLocaleString('en-KE')}`;
   flightMessage.textContent = '';
+  seatStep.hidden = true;
+  modalWhatsappButton.hidden = true;
+  selectedSeat = undefined;
   document.querySelector('.flight-dialog h2').textContent = 'Choose your flight';
   flightResults.hidden = false;
   flightDetailsForm.hidden = true;
@@ -190,11 +214,37 @@ document.querySelectorAll('.result-book-button').forEach((button) => {
 
 flightDetailsForm.addEventListener('submit', (event) => {
   event.preventDefault();
+  if (!flightDetailsForm.reportValidity()) return;
   const details = new FormData(flightDetailsForm);
-  const specialRequest = details.get('specialRequest')?.trim() || 'None';
-  const idNumber = details.get('idNumber')?.trim() || 'Not provided';
-  const message = `Hello Skyward, I would like flight options. ${flightSummary.textContent} Name: ${details.get('name')}. Phone: ${details.get('phone')}. Email: ${details.get('email')}. ID/Passport: ${idNumber}. Special request: ${specialRequest}.`;
-  window.location.href = `https://wa.me/254755528986?text=${encodeURIComponent(message)}`;
+  passengerDetails = Object.fromEntries(details);
+  flightDetailsForm.hidden = true;
+  seatStep.hidden = false;
+  document.querySelector('.flight-dialog h2').textContent = 'Choose your seat';
+  modalSeatMessage.textContent = 'Select an available seat to continue.';
+  modalWhatsappButton.hidden = true;
+});
+
+modalSeatGrid.addEventListener('click', (event) => {
+  const seat = event.target.closest('.modal-seat:not(.reserved)');
+  if (!seat) return;
+  modalSeatGrid.querySelectorAll('.modal-seat').forEach((item) => item.classList.remove('selected'));
+  seat.classList.add('selected');
+  selectedSeat = seat.dataset.seat;
+  modalSeatMessage.textContent = `Seat ${selectedSeat} selected.`;
+  const specialRequest = passengerDetails.specialRequest?.trim() || 'None';
+  const idNumber = passengerDetails.idNumber?.trim() || 'Not provided';
+  const message = [
+    'Hello Skyward, I would like to confirm my booking.',
+    flightSummary.textContent,
+    `Name: ${passengerDetails.name}`,
+    `Phone: ${passengerDetails.phone}`,
+    `Email: ${passengerDetails.email}`,
+    `ID/Passport: ${idNumber}`,
+    `Seat: ${selectedSeat}`,
+    `Special request: ${specialRequest}`
+  ].join('\n');
+  modalWhatsappButton.href = `https://wa.me/254755528986?text=${encodeURIComponent(message)}`;
+  modalWhatsappButton.hidden = false;
 });
 
 document.querySelector('.menu-button').addEventListener('click', () => {

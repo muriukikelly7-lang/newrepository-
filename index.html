@@ -240,9 +240,17 @@
         <label>Email address<input type="email" name="email" required></label>
         <label>ID number or passport number<input type="text" name="idNumber" placeholder="e.g. ABC123456" required></label>
         <label>Special request<textarea name="specialRequest" rows="3" placeholder="Optional request" aria-label="Special request"></textarea></label>
-        <button type="submit">Book Now</button>
+        <button type="submit">Confirm details</button>
         <p class="flight-message" role="status"></p>
       </form>
+      <section class="seat-step" hidden aria-labelledby="seat-step-title">
+        <p class="eyebrow">Step 2 of 2</p>
+        <h3 id="seat-step-title">Choose your seat</h3>
+        <p class="seat-step-copy">Your details are confirmed. Select an available seat to continue.</p>
+        <div class="modal-seat-grid" role="group" aria-label="Available seats"></div>
+        <p class="modal-seat-message" role="status" aria-live="polite"></p>
+        <a class="modal-whatsapp-button" href="#" hidden>Continue on WhatsApp</a>
+      </section>
     </div>
   </div>
   <div class="signup-modal" hidden>
