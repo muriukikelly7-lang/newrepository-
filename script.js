@@ -157,7 +157,8 @@ const modalSeatMessage = document.querySelector('.modal-seat-message');
 const modalWhatsappButton = document.querySelector('.modal-whatsapp-button');
 const reservedSeats = new Set(['4B', '5C', '6B', '7A', '8D']);
 let passengerDetails;
-let selectedSeat;
+let selectedSeats = [];
+let passengerCount = 1;
 
 for (let row = 1; row <= 8; row += 1) {
   for (const column of ['A', 'B', 'C', 'D']) {
@@ -191,7 +192,8 @@ document.querySelector('.search-button').addEventListener('click', () => {
   flightMessage.textContent = '';
   seatStep.hidden = true;
   modalWhatsappButton.hidden = true;
-  selectedSeat = undefined;
+  selectedSeats = [];
+  modalSeatGrid.querySelectorAll('.modal-seat').forEach((item) => item.classList.remove('selected'));
   document.querySelector('.flight-dialog h2').textContent = 'Choose your flight';
   flightResults.hidden = false;
   flightDetailsForm.hidden = true;
@@ -217,20 +219,33 @@ flightDetailsForm.addEventListener('submit', (event) => {
   if (!flightDetailsForm.reportValidity()) return;
   const details = new FormData(flightDetailsForm);
   passengerDetails = Object.fromEntries(details);
+  passengerCount = getPassengerCount();
   flightDetailsForm.hidden = true;
   seatStep.hidden = false;
   document.querySelector('.flight-dialog h2').textContent = 'Choose your seat';
-  modalSeatMessage.textContent = 'Select an available seat to continue.';
+  modalSeatMessage.textContent = `Select ${passengerCount} seat${passengerCount === 1 ? '' : 's'} to continue.`;
   modalWhatsappButton.hidden = true;
 });
 
 modalSeatGrid.addEventListener('click', (event) => {
   const seat = event.target.closest('.modal-seat:not(.reserved)');
   if (!seat) return;
-  modalSeatGrid.querySelectorAll('.modal-seat').forEach((item) => item.classList.remove('selected'));
-  seat.classList.add('selected');
-  selectedSeat = seat.dataset.seat;
-  modalSeatMessage.textContent = `Seat ${selectedSeat} selected.`;
+  const seatCode = seat.dataset.seat;
+  const seatIndex = selectedSeats.indexOf(seatCode);
+  if (seatIndex >= 0) {
+    selectedSeats.splice(seatIndex, 1);
+    seat.classList.remove('selected');
+  } else if (selectedSeats.length < passengerCount) {
+    selectedSeats.push(seatCode);
+    seat.classList.add('selected');
+  }
+  if (selectedSeats.length < passengerCount) {
+    const remaining = passengerCount - selectedSeats.length;
+    modalSeatMessage.textContent = `Select ${remaining} more seat${remaining === 1 ? '' : 's'}.`;
+    modalWhatsappButton.hidden = true;
+    return;
+  }
+  modalSeatMessage.textContent = `Seats selected: ${selectedSeats.join(', ')}.`;
   const specialRequest = passengerDetails.specialRequest?.trim() || 'None';
   const idNumber = passengerDetails.idNumber?.trim() || 'Not provided';
   const message = [
@@ -240,7 +255,7 @@ modalSeatGrid.addEventListener('click', (event) => {
     `Phone: ${passengerDetails.phone}`,
     `Email: ${passengerDetails.email}`,
     `ID/Passport: ${idNumber}`,
-    `Seat: ${selectedSeat}`,
+    `Seats: ${selectedSeats.join(', ')}`,
     `Special request: ${specialRequest}`
   ].join('\n');
   modalWhatsappButton.href = `https://wa.me/254755528986?text=${encodeURIComponent(message)}`;
