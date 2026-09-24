@@ -1,264 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Skyward Airlines - discover the world with more room to wander.">
-  <title>Skyward Airlines | More room to wander</title>
+  <meta name="description" content="Safarilink seating arrangements">
+  <title>Safarilink Seating Arrangements</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260926">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="weather-bar"><span>Nairobi</span><span class="weather-cloud" aria-hidden="true">☁</span><strong>15°C</strong><span>-</span><time class="nairobi-time" datetime="">--:--</time></div>
-  <header class="site-header">
-    <a class="brand" href="#top" aria-label="Skyward Airlines home">
-      <img class="brand-logo" src="https://skywardairlines.com/storage/2024/02/Skyward-Airlines-Web-Logo.png" alt="Skyward Airlines">
-    </a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href="#about">About Us</a>
-      <a class="active" href="#book">Book</a>
-      <a href="#discover">Discover</a>
-      <a href="#services">Services</a>
-      <a href="#help">Help</a>
-    </nav>
-    <div class="header-actions">
-      <button class="language-button" type="button" aria-label="Choose language">EN <span aria-hidden="true">⌄</span></button>
-      <button class="book-now-button" type="button">Book now</button>
-      <button class="account-button" type="button"><span class="user-icon" aria-hidden="true">◯</span> Sign in</button>
-      <button class="menu-button" type="button" aria-label="Open navigation">☰</button>
-    </div>
-  </header>
-
-  <main id="top">
-    <section class="hero booking-open" id="book">
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <p class="eyebrow light">Featured destination</p>
-        <h1>Malindi, Now Daily</h1>
-        <p class="hero-copy">Introducing our new morning departure from JKIA.</p>
-        <a class="hero-cta" href="#book">Book Now</a>
+  <main class="boarding-card">
+    <header class="page-header">
+      <div class="legend" aria-label="Seat status legend">
+        <span><i class="swatch available"></i>Available</span>
+        <span><i class="swatch reserved"></i>Reserved</span>
+        <span><i class="swatch selected"></i>Selected</span>
       </div>
-
-      <button class="hero-arrow hero-arrow-left" type="button" aria-label="Previous destination">‹</button>
-      <button class="hero-arrow hero-arrow-right" type="button" aria-label="Next destination">›</button>
-
-      <div class="booking-shell" aria-label="Flight search">
-        <div class="booking-tabs" role="tablist" aria-label="Booking type">
-          <button class="booking-tab selected" role="tab" aria-selected="true" data-tab="flights"><span>✈</span> Flights</button>
-          <button class="booking-tab" role="tab" aria-selected="false" data-tab="booking"><span>⚙</span> Your booking</button>
-          <button class="booking-tab" role="tab" aria-selected="false" data-tab="status"><span>◷</span> Flight status</button>
-        </div>
-        <div class="trip-options flight-panel" role="group" aria-label="Trip type">
-          <button class="trip-pill active" type="button">Roundtrip</button>
-          <button class="trip-pill" type="button">One-way</button>
-        </div>
-        <div class="search-grid flight-panel">
-          <label class="field location-field">
-            <span>From</span>
-            <input type="text" list="airport-options" value="Nairobi" placeholder="Airport or country" aria-label="From airport or country">
-          </label>
-          <button class="swap-button" type="button" aria-label="Swap departure and arrival">↔</button>
-          <label class="field location-field">
-            <span>To</span>
-            <input type="text" list="airport-options" value="Mombasa" placeholder="Airport or country" aria-label="To airport or country">
-          </label>
-          <label class="field date-field">
-            <span>Depart</span>
-            <input type="date" aria-label="Depart date">
-          </label>
-          <label class="field date-field return-field">
-            <span>Return</span>
-            <input type="date" value="2026-09-22" aria-label="Return date">
-          </label>
-          <div class="field passenger-field">
-            <span>1 Adult, 0 Infant, 0 Children</span>
-            <input class="passenger-summary" type="text" value="1 passenger" aria-label="Passengers" readonly>
-            <div class="passenger-popover" hidden>
-              <strong>Passengers</strong>
-              <div class="passenger-row" data-passenger="adults"><span>Adult(s)</span><div><button type="button" aria-label="Remove adult">−</button><output>1</output><button type="button" aria-label="Add adult">+</button></div></div>
-              <div class="passenger-row" data-passenger="children"><span>Child(ren)<small>from 2 to 11 years old</small></span><div><button type="button" aria-label="Remove child">−</button><output>0</output><button type="button" aria-label="Add child">+</button></div></div>
-              <div class="passenger-row" data-passenger="infants"><span>Infant(s)<small>until 1 year old</small></span><div><button type="button" aria-label="Remove infant">−</button><output>0</output><button type="button" aria-label="Add infant">+</button></div></div>
-              <label class="flexible-dates"><input type="checkbox"> My travel dates are flexible</label>
-              <button class="passenger-accept" type="button">Accept</button>
-            </div>
-          </div>
-          <label class="field promo-field">
-            <span>Coupon code</span>
-            <input type="text" placeholder="Optional" aria-label="Coupon code">
-          </label>
-          <label class="field currency-field">
-            <span>Currency</span>
-            <select aria-label="Currency">
-              <option>Kenyan Shilling</option>
-              <option>US Dollar</option>
-              <option>British Pound</option>
-              <option>Euro</option>
-            </select>
-          </label>
-          <button class="search-button" type="button">Find flights</button>
-        </div>
-        <datalist id="airport-options">
-          <option value="Nairobi (NBO)"></option>
-          <option value="Mombasa (MBA)"></option>
-          <option value="Malindi (MYD)"></option>
-          <option value="Ukunda (UKA)"></option>
-          <option value="Lodwar (LOK)"></option>
-          <option value="Garissa (GAS)"></option>
-          <option value="Lamu (LAU)"></option>
-          <option value="Dar es Salaam (DAR)"></option>
-        </datalist>
-        <div class="booking-panel" hidden>
-          <div class="booking-panel-fields">
-            <label class="field"><span>Booking reference</span><input type="text" placeholder="e.g. ABC123" aria-label="Booking reference"></label>
-            <label class="field"><span>Passenger surname</span><input type="text" placeholder="Surname" aria-label="Passenger surname"></label>
-          </div>
-          <button class="panel-action" type="button">Retrieve booking</button>
-        </div>
-        <div class="status-panel" hidden>
-          <div class="booking-panel-fields">
-            <label class="field"><span>Flight number</span><input type="text" placeholder="e.g. OW 101" aria-label="Flight number"></label>
-            <label class="field"><span>Departure date</span><input type="date" aria-label="Departure date"></label>
-          </div>
-          <button class="panel-action" type="button">Check status</button>
-        </div>
-        <p class="search-message" role="status" aria-live="polite"></p>
+      <div class="trip-header">
+        <div class="brand-mark" aria-label="Safarilink logo">Safarilink</div>
+        <div><h1>Safarilink Seating Arrangements</h1><p>Nairobi <b aria-hidden="true">→</b> BUNGOMA</p><p>04:50 PM <b aria-hidden="true">→</b> 05:35 PM</p></div>
       </div>
-      <div class="reference-booking-bar" aria-label="Quick booking links">
-        <button class="quick-tile quick-tile-active" type="button"><span class="plane-icon" aria-hidden="true">✈</span><strong>FLIGHTS</strong></button>
-        <button class="quick-tile" type="button"><span class="booking-icon" aria-hidden="true">⚙</span><strong>YOUR BOOKING</strong></button>
-        <div class="chat-bubble" role="status" aria-live="polite">
-          <strong>Hey there!</strong>
-          <span>How can I help you?</span>
-          <img class="chat-avatar" src="https://us4-files.zohopublic.com/public/SalesIQ/download/d_900312112_brands_siq6a9bee0cbba318c5dc03e8399cef70afc12aa5b356ea133ae4141f5c1f1f672b?x-cli-msg=%7B%22x-siq-soid%22%3A%22900312112%22%2C%22x-siq-module%22%3A%22brands%22%2C%22x-siq-type%22%3A%22fgravatar%22%2C%22x-siq-parentid%22%3A%22siq6a9bee0cbba318c5dc03e8399cef70afc12aa5b356ea133ae4141f5c1f1f672b%22%2C%22x-siq-resourceid%22%3A%221764324048947%22%2C%22x-siq-filename%22%3A%22Zoho%20Profile%202.jpg%22%7D" alt="Skyward support agent">
-        </div>
-      </div>
+    </header>
+    <section class="details-panel" aria-labelledby="details-title">
+      <div class="step-label">Step 1 of 2</div>
+      <h2 id="details-title">Confirm your details</h2>
+      <p>Enter your details before choosing a seat.</p>
+      <form class="details-form">
+        <label>Full name<input name="name" type="text" autocomplete="name" required></label>
+        <label>Phone or WhatsApp number<input name="phone" type="tel" autocomplete="tel" required></label>
+        <label>Email address<input name="email" type="email" autocomplete="email" required></label>
+        <button class="confirm-details" type="submit">Confirm details</button>
+        <p class="details-message" role="status" aria-live="polite"></p>
+      </form>
     </section>
-
-    <section class="specials-section" id="about">
-      <div class="section-title"><p class="eyebrow">Skyward smart deals</p><h2>Skyward Specials</h2></div>
-      <div class="specials-grid">
-        <a class="special-card special-card-wide" href="#book"><img src="https://skywardairlines.com/storage/2026/09/TRIP-Skyward-Airlines-Offer-Week-2.webp" alt="Skyward offer week"><span>Get Priority Check-in<br>when you book Skyward tickets<br>with Trips on My OneApp</span></a>
-        <a class="special-card special-card-square" href="#book"><img src="https://skywardairlines.com/storage/2026/01/Nairobi-Skyward-Airlines-01.jpg" alt="Nairobi skyline"><span><strong>NAIROBI</strong><small>From Ksh 7,000</small><b>EXPLORE</b></span></a>
+    <section class="seat-panel locked" aria-labelledby="seat-map-title" aria-disabled="true" hidden>
+      <h2 id="seat-map-title" class="sr-only">Choose a seat</h2>
+      <button class="cockpit" type="button" aria-label="Cockpit">✈ <span>Cockpit</span></button>
+      <div class="seat-map" role="group" aria-label="Available seats">
+        <div class="seat-row"><button class="seat available" data-seat="1A"><span>♙</span>1A</button><button class="seat available" data-seat="1B"><span>♙</span>1B</button><span class="row-number">1</span><button class="seat available" data-seat="1C"><span>♙</span>1C</button><button class="seat available" data-seat="1D"><span>♙</span>1D</button></div>
+        <div class="seat-row"><button class="seat available" data-seat="2A"><span>♙</span>2A</button><button class="seat available" data-seat="2B"><span>♙</span>2B</button><span class="row-number">2</span><button class="seat available" data-seat="2C"><span>♙</span>2C</button><button class="seat available" data-seat="2D"><span>♙</span>2D</button></div>
+        <div class="seat-row"><button class="seat available" data-seat="3A"><span>♙</span>3A</button><button class="seat available" data-seat="3B"><span>♙</span>3B</button><span class="row-number">3</span><button class="seat available" data-seat="3C"><span>♙</span>3C</button><button class="seat available" data-seat="3D"><span>♙</span>3D</button></div>
+        <div class="seat-row"><button class="seat available" data-seat="4A"><span>♙</span>4A</button><button class="seat reserved" data-seat="4B" disabled><span>♙</span>4B</button><span class="row-number">4</span><button class="seat available" data-seat="4C"><span>♙</span>4C</button><button class="seat available" data-seat="4D"><span>♙</span>4D</button></div>
+        <div class="seat-row"><button class="seat available" data-seat="5A"><span>♙</span>5A</button><button class="seat available" data-seat="5B"><span>♙</span>5B</button><span class="row-number">5</span><button class="seat reserved" data-seat="5C" disabled><span>♙</span>5C</button><button class="seat available" data-seat="5D"><span>♙</span>5D</button></div>
+        <div class="seat-row"><button class="seat available" data-seat="6A"><span>♙</span>6A</button><button class="seat reserved" data-seat="6B" disabled><span>♙</span>6B</button><span class="row-number">6</span><button class="seat available" data-seat="6C"><span>♙</span>6C</button><button class="seat available" data-seat="6D"><span>♙</span>6D</button></div>
+        <div class="seat-row"><button class="seat reserved" data-seat="7A" disabled><span>♙</span>7A</button><button class="seat available" data-seat="7B"><span>♙</span>7B</button><span class="row-number">7</span><button class="seat available" data-seat="7C"><span>♙</span>7C</button><button class="seat available" data-seat="7D"><span>♙</span>7D</button></div>
+        <div class="seat-row"><button class="seat available" data-seat="8A"><span>♙</span>8A</button><button class="seat available" data-seat="8B"><span>♙</span>8B</button><span class="row-number">8</span><button class="seat available" data-seat="8C"><span>♙</span>8C</button><button class="seat reserved" data-seat="8D" disabled><span>♙</span>8D</button></div>
       </div>
+      <p class="selection-message" role="status" aria-live="polite">Select an available seat to continue.</p>
+      <a class="whatsapp-button" href="#" hidden>WhatsApp booking</a>
     </section>
-
-    <section class="destinations-section" id="discover">
-      <div class="section-title"><p class="eyebrow">Destinations</p><h2>Our Destinations</h2></div>
-      <div class="destination-grid">
-        <a class="destination-card" href="#book"><img src="https://skywardairlines.com/storage/2026/01/Nairobi-Skyward-Airlines-01.jpg" alt="Nairobi"><span><strong>NAIROBI</strong><small>From Ksh 7,000</small><b>EXPLORE</b></span></a>
-        <a class="destination-card" href="#book"><img src="https://skywardairlines.com/storage/2026/07/Dar-es-Salaam-Skyward-Airlines.webp" alt="Dar es Salaam"><span><strong>DAR ES SALAAM</strong><small>From Ksh 22,750</small><b>EXPLORE</b></span></a>
-        <a class="destination-card" href="#book"><img src="https://skywardairlines.com/storage/2026/07/Skyward-Airlines-Vipingo.webp" alt="Vipingo Ridge"><span><strong>VIPINGO RIDGE</strong><small>From Ksh 9,500</small><b>EXPLORE</b></span></a>
-        <a class="destination-card" href="#book"><img src="https://skywardairlines.com/storage/2026/01/Malindi-Skyward-Airlines-001-1.jpg" alt="Malindi"><span><strong>MALINDI</strong><small>From Ksh 7,000</small><b>EXPLORE</b></span></a>
-        <a class="destination-card" href="#book"><img src="https://skywardairlines.com/storage/2026/02/Lodwar-Sunset-Skyward.webp" alt="Lodwar"><span><strong>LODWAR</strong><small>From Ksh 11,500</small><b>EXPLORE</b></span></a>
-        <a class="destination-card" href="#book"><img src="https://skywardairlines.com/storage/2026/07/Ukunda-BEach-Skyward-Airlines.webp" alt="Ukunda"><span><strong>UKUNDA</strong><small>From Ksh 7,000</small><b>EXPLORE</b></span></a>
-        <a class="destination-card" href="#book"><img src="https://skywardairlines.com/storage/2026/07/Skyward-Airlines-Garissa.webp" alt="Garissa"><span><strong>GARISSA</strong><small>From Ksh 8,500</small><b>EXPLORE</b></span></a>
-        <a class="destination-card" href="#book"><img src="https://skywardairlines.com/storage/2026/07/Lamu-Skyward-Airlines-001.webp" alt="Lamu"><span><strong>LAMU</strong><small>From Ksh 11,000</small><b>EXPLORE</b></span></a>
-        <a class="destination-card" href="#book"><img src="https://skywardairlines.com/storage/2026/02/Eldoret-Skyward-Airlines.webp" alt="Eldoret"><span><strong>ELDORET</strong><small>From Ksh 7,000</small><b>EXPLORE</b></span></a>
-        <a class="destination-card" href="#book"><img src="https://skywardairlines.com/storage/2026/01/Mombasa-Skyward-Airlines-001.jpg" alt="Mombasa"><span><strong>MOMBASA</strong><small>From Ksh 7,000</small><b>EXPLORE</b></span></a>
-        <a class="destination-card" href="#book"><img src="https://skywardairlines.com/storage/2026/07/Skyward-Airlines-Kitale-001.webp" alt="Kitale"><span><strong>KITALE</strong><small>From Ksh 8,000</small><b>EXPLORE</b></span></a>
-        <a class="destination-card" href="#book"><img src="https://skywardairlines.com/storage/2026/01/Migori-Skyward-Airlines.jpg" alt="Migori"><span><strong>MIGORI</strong><small>From Ksh 8,000</small><b>EXPLORE</b></span></a>
-      </div>
-    </section>
-
-    <section class="fares-section" id="fares">
-      <div class="section-title"><p class="eyebrow">Skyward Airlines</p><h2>Fares from Nairobi</h2></div>
-      <div class="fare-list">
-        <a class="fare-row" href="#book"><span>📍 Nairobi → Garissa</span><strong>KSh 7,000</strong></a>
-        <a class="fare-row" href="#book"><span>📍 Nairobi → Mandera</span><strong>KSh 6,000</strong></a>
-        <a class="fare-row" href="#book"><span>📍 Nairobi → Homabay</span><strong>KSh 7,000</strong></a>
-        <a class="fare-row" href="#book"><span>📍 Nairobi → Migori</span><strong>KSh 6,000</strong></a>
-        <a class="fare-row" href="#book"><span>📍 Nairobi → Kitale</span><strong>KSh 6,000</strong></a>
-        <a class="fare-row" href="#book"><span>📍 Nairobi → Kisumu</span><strong>KSh 6,500</strong></a>
-        <a class="fare-row" href="#book"><span>📍 Nairobi → Eldoret</span><strong>KSh 7,000</strong></a>
-        <a class="fare-row" href="#book"><span>📍 Nairobi → Lodwar</span><strong>KSh 11,500</strong></a>
-        <a class="fare-row" href="#book"><span>📍 Nairobi → Mombasa</span><strong>KSh 7,000</strong></a>
-        <a class="fare-row" href="#book"><span>📍 Nairobi → Kakamega</span><strong>KSh 7,000</strong></a>
-      </div>
-    </section>
-
-    <section class="services-section" id="services">
-      <div class="section-title"><p class="eyebrow">Travel with ease</p><h2>Complement Your Journey</h2></div>
-      <div class="services-grid">
-        <a class="service-card" href="#services"><img src="https://skywardairlines.com/storage/2026/03/Skyward-Airlines-Ebari-CIP-Lounge.webp" alt="Skyward Airlines Ebari CIP Lounge"><span><svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M5 29h38v8H5zM9 16h30v9H9zM14 9h20v7H14zM5 39h38"/></svg><strong>Lounge Access</strong><small>Relax in style before your flight.</small></span></a>
-        <a class="service-card" href="#services"><img src="images/809409232_1650587749958639_8072749686215596299_n.jpg" alt="Skyward Airlines passengers beside an aircraft"><span><svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M12 15h24v27H12zM17 15V9h14v6M9 20h30M18 26v10M30 26v10"/></svg><strong>Extra Baggage</strong><small>Pack everything you need.</small></span></a>
-        <a class="service-card" href="#services"><img src="images/806082465_1265971045627048_3501821998392713301_n.jpg" alt="Skyward Airlines flight crew at an aircraft door"><span><svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 35h32M12 35V18h8v17M28 35V12h8v23M20 23h8"/></svg><strong>Legroom</strong><small>Choose your favorite seat.</small></span></a>
-        <a class="service-card" href="#services"><img src="images/807565749_1090969676807565_299617991234512025_n.jpg" alt="Skyward Airlines aircraft at sunset"><span><svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M10 15h28v25H10zM10 15l14-7 14 7M24 8v32M10 25h28"/></svg><strong>Parcels</strong><small>Stay connected with same-day delivery.</small></span></a>
-        <a class="service-card" href="#services"><img src="images/804443036_945104502006699_1551617639717166006_n.jpg" alt="Skyward Airlines aircraft on the runway"><span><svg class="service-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M5 27l17-5 15-12 5 4-12 15-3 11-5-1-1-9-16 3zM22 22l-5-7 3-2 7 6"/></svg><strong>Charter Services</strong><small>Fly on your schedule.</small></span></a>
-      </div>
-    </section>
-
-    <section class="newsletter-section" aria-labelledby="newsletter-title">
-      <div>
-        <h2 id="newsletter-title">Sign up to receive our latest offers and news</h2>
-      </div>
-      <div class="newsletter-copy">
-        <p>Subscribe and be the first to receive news and exclusive offers.</p>
-        <form class="newsletter-form">
-          <input type="email" placeholder="Your email address" aria-label="Your email address" required>
-          <button class="signup-button" type="submit">Sign up</button>
-        </form>
-      </div>
-    </section>
-
-    <section class="media-section" id="media">
-      <div class="section-title"><p class="eyebrow">Media centre</p><h2>News &amp; Blogs</h2></div>
-      <div class="media-grid">
-        <a class="media-card" href="#media"><img src="https://skywardairlines.com/storage/2026/08/Skyward-Marks-13-Years-in-the-Skies-with-the-Launch-of-Its-13th-Route-to-Garissa-011-1.webp" alt="Skyward celebrates 13 years"><span><small>Skyward stories</small><strong>Skyward Marks 13 Years in the Skies with the Launch of Its 13th Route to Garissa</strong></span></a>
-        <a class="media-card" href="#media"><img src="https://skywardairlines.com/storage/2026/06/Skyward-Foundation-Impacts-950-Children-in-Wajir-Through-CSR-Mentorship-020.webp" alt="Skyward Foundation mentorship"><span><small>Community</small><strong>Skyward Foundation Impacts 950 Children in Wajir Through CSR, Mentorship</strong></span></a>
-        <a class="media-card" href="#media"><img src="https://skywardairlines.com/storage/2026/07/Skyward-Airlines-Supports-Mama-Ibado-Charity-Run-for-Kenyas-Senior-Citizens-011.webp" alt="Skyward community support"><span><small>In the news</small><strong>Skyward Airlines Supports Mama Ibado Charity Run for Kenya's Senior Citizens</strong></span></a>
-      </div>
-    </section>
-
   </main>
-
-  <footer class="site-footer" id="help">
-    <div class="footer-top">
-      <div class="footer-brand"><span class="brand-mark">S</span><div><strong>SKYWARD<span class="brand-dot">.</span></strong><p>More room to wander.</p></div></div>
-      <div class="footer-column"><h3>Where We Fly</h3><a href="#book">Fly to Dar es Salaam</a><a href="#book">Fly to Vipingo Ridge</a><a href="#book">Fly to Mombasa</a><a href="#book">Fly to Lodwar</a><a href="#book">Fly to Ukunda</a><a href="#book">Fly to Malindi</a></div>
-      <div class="footer-column"><h3>Travel Information</h3><a href="#help">Travel Requirements Documentation</a><a href="#help">Dangerous Goods Policy</a><a href="#help">Children &amp; Infants</a><a href="#help">Applicable Fees</a><a href="#help">Baggage Policy</a><a href="#help">Ticket Policies</a></div>
-      <div class="footer-column"><h3>About Us</h3><a href="#about">Careers</a><a href="#services">Our Fleet</a><a href="#services">Ebari Lounge</a><a href="#services">Our Services</a><a href="#media">Latest News</a><a href="#about">Why Book Direct?</a><a href="#about">Advertise With Us</a><a href="#help">Frequently Asked Questions</a></div>
-      <div class="footer-column footer-contact"><h3>Contact Info</h3><p>Skyward Airlines Building,<br>Wilson Airport.</p><a href="tel:0755528986">0755528986</a><span>0735773684</span><a href="mailto:reservations@skywardairlines.co.ke">reservations@skywardairlines.co.ke</a><a href="mailto:feedback@skywardairlines.co.ke">feedback@skywardairlines.co.ke</a><a href="mailto:parcels@skywardairlines.co.ke">parcels@skywardairlines.co.ke</a></div>
-    </div>
-    <div class="footer-bottom"><span>Get Social: · f · X · ◎ · in · ♪</span><span>© 2026 All Rights Reserved</span><div class="footer-links"><a href="#help">Access for Travel Agencies</a><a href="#help">Terms and conditions</a><a href="#help">Privacy Policy</a></div></div>
-  </footer>
-  <div class="flight-modal" hidden>
-    <div class="flight-dialog" role="dialog" aria-modal="true" aria-labelledby="flight-dialog-title">
-      <button class="flight-close" type="button" aria-label="Close flight details">×</button>
-      <p class="eyebrow">Flight enquiry</p>
-      <h2 id="flight-dialog-title">Choose your flight</h2>
-      <p class="flight-summary"></p>
-      <div class="flight-results">
-        <article class="flight-result"><div><strong>Skyward Express</strong><span>Direct flight</span></div><div><strong>08:00 - 09:15</strong><span>1h 15m</span></div><div><strong>From KSh 7,000</strong><span>Round trip fare</span></div><button class="result-book-button" type="button">Book Now</button></article>
-        <article class="flight-result"><div><strong>Skyward Express</strong><span>Direct flight</span></div><div><strong>14:30 - 15:45</strong><span>1h 15m</span></div><div><strong>From KSh 8,500</strong><span>Round trip fare</span></div><button class="result-book-button" type="button">Book Now</button></article>
-      </div>
-      <form class="flight-details-form">
-        <p class="selected-flight"></p>
-        <label>Full name<input type="text" name="name" required></label>
-        <label>Phone or WhatsApp number<input type="tel" name="phone" required></label>
-        <label>Email address<input type="email" name="email" required></label>
-        <label>ID number or passport number<input type="text" name="idNumber" placeholder="e.g. ABC123456" required></label>
-        <label>Special request<textarea name="specialRequest" rows="3" placeholder="Optional request" aria-label="Special request"></textarea></label>
-        <button type="submit">Book Now</button>
-        <p class="flight-message" role="status"></p>
-      </form>
-    </div>
-  </div>
-  <div class="signup-modal" hidden>
-    <div class="signup-dialog" role="dialog" aria-modal="true" aria-labelledby="signup-title">
-      <button class="signup-close" type="button" aria-label="Close sign up">×</button>
-      <p class="eyebrow">Welcome aboard</p>
-      <h2 id="signup-title">Create your Skyward account.</h2>
-      <form class="signup-form">
-        <label>Full name<input type="text" name="name" required></label>
-        <label>Email address<input type="email" name="email" required></label>
-        <label>Password<input type="password" name="password" required></label>
-        <button type="submit">Create account</button>
-        <p class="signup-message" role="status"></p>
-      </form>
-    </div>
-  </div>
-  <script src="script.js?v=20260927"></script>
+  <script src="script.js"></script>
 </body>
 </html>
