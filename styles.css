@@ -331,6 +331,7 @@ input[type='radio'] { accent-color: var(--orange); }
 .services-section .service-card strong { color: white; }
 .services-section .service-card small { color: rgba(255,255,255,.84); }
 .field select { width: 100%; min-width: 0; padding: 0; border: 0; outline: 0; color: var(--ink); background: transparent; font: 600 14px Georgia, serif; cursor: pointer; }
+.flight-details-form select { width: 100%; border: 1px solid var(--line); padding: 12px; background: white; color: var(--ink); font: inherit; }
 .passenger-field { position: relative; }
 .passenger-summary { cursor: pointer; }
 .passenger-popover { position: absolute; top: calc(100% + 8px); right: 0; z-index: 40; width: 280px; padding: 18px; background: white; color: var(--ink); box-shadow: 0 10px 28px rgba(10,35,36,.22); }

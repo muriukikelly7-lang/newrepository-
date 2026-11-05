@@ -165,6 +165,8 @@ const reservedSeats = new Set(['4B', '5C', '6B', '7A', '8D']);
 let passengerDetails;
 let selectedSeats = [];
 let passengerCount = 1;
+let currentBooking;
+let selectedFlightDetails;
 
 for (let row = 1; row <= 8; row += 1) {
   for (const column of ['A', 'B', 'C', 'D']) {
@@ -209,8 +211,20 @@ document.querySelector('.search-button').addEventListener('click', () => {
     return;
   }
   const fare = getRouteFare(locations[0], locations[1]);
-  const passengerCount = getPassengerCount();
-  const totalFare = fare * passengerCount;
+  passengerCount = getPassengerCount();
+  const journeyCount = tripType === 'roundtrip' ? 2 : 1;
+  const totalFare = fare * passengerCount * journeyCount;
+  const flightFares = [fare, fare + 1500];
+  const routeLocations = locations.map((location) => location.replace(/\s*\([^)]*\)/, '').trim());
+  currentBooking = {
+    origin: routeLocations[0],
+    destination: routeLocations[1],
+    departureDate,
+    returnDate: tripType === 'roundtrip' ? returnDate : '',
+    journeyCount,
+    passengerCount,
+    farePerPassengerPerJourney: fare
+  };
   const formattedFare = `KSh ${totalFare.toLocaleString('en-KE')}`;
   flightSummary.textContent = `${tripType === 'roundtrip' ? 'Roundtrip' : 'One-way'}: ${locations[0]} to ${locations[1]} for ${passengerCount} passenger${passengerCount === 1 ? '' : 's'}, departing ${departureDate}${tripType === 'roundtrip' ? ` and returning ${returnDate}` : ''}.`;
   const resultPrices = [...document.querySelectorAll('.flight-result')].map((result) => result.querySelectorAll('strong')[2]);
@@ -219,7 +233,10 @@ document.querySelector('.search-button').addEventListener('click', () => {
     label.textContent = fareDescription;
   });
   resultPrices[0].textContent = `From ${formattedFare}`;
-  resultPrices[1].textContent = `From KSh ${(totalFare + (1500 * passengerCount)).toLocaleString('en-KE')}`;
+  resultPrices[1].textContent = `From KSh ${(flightFares[1] * passengerCount * journeyCount).toLocaleString('en-KE')}`;
+  document.querySelectorAll('.flight-result').forEach((result, index) => {
+    result.dataset.farePerJourney = String(flightFares[index]);
+  });
   flightMessage.textContent = '';
   seatStep.hidden = true;
   modalWhatsappButton.hidden = true;
@@ -238,7 +255,13 @@ flightClose.addEventListener('click', () => {
 document.querySelectorAll('.result-book-button').forEach((button) => {
   button.addEventListener('click', () => {
     const result = button.closest('.flight-result');
-    selectedFlight.textContent = `Selected: ${result.querySelectorAll('strong')[1].textContent}, ${result.querySelectorAll('strong')[2].textContent}.`;
+    const flightDetails = result.querySelectorAll('strong');
+    selectedFlight.textContent = `Selected: ${flightDetails[1].textContent}, ${flightDetails[2].textContent}.`;
+    selectedFlightDetails = {
+      airline: flightDetails[0].textContent,
+      schedule: flightDetails[1].textContent,
+      farePerPassengerPerJourney: Number(result.dataset.farePerJourney)
+    };
     document.querySelector('.flight-dialog h2').textContent = 'Complete your booking enquiry';
     flightResults.hidden = true;
     flightDetailsForm.hidden = false;
@@ -279,15 +302,30 @@ modalSeatGrid.addEventListener('click', (event) => {
   modalSeatMessage.textContent = `Seats selected: ${selectedSeats.join(', ')}.`;
   const specialRequest = passengerDetails.specialRequest?.trim() || 'None';
   const idNumber = passengerDetails.idNumber?.trim() || 'Not provided';
+  const farePerJourney = selectedFlightDetails.farePerPassengerPerJourney;
+  const totalFare = farePerJourney * currentBooking.journeyCount * currentBooking.passengerCount;
+  const departureTime = selectedFlightDetails.schedule.split(/\s+-\s+/)[0];
   const message = [
-    'Hello Skyward, I would like to confirm my booking.',
-    flightSummary.textContent,
+    'Hello Skyward Airlines,',
+    '',
+    'I would like to confirm my booking:',
+    `Route: ${currentBooking.origin} → ${currentBooking.destination}`,
+    `Depart: ${currentBooking.departureDate} at ${departureTime}`,
+    ...(currentBooking.returnDate ? [`Return: ${currentBooking.returnDate} at ${departureTime}`] : []),
+    `Fare per passenger per journey: Ksh. ${farePerJourney.toLocaleString('en-KE')}`,
+    `Journeys: ${currentBooking.journeyCount}`,
+    `Passengers: ${currentBooking.passengerCount} Passenger${currentBooking.passengerCount === 1 ? '' : 's'}`,
+    `Total: Ksh. ${totalFare.toLocaleString('en-KE')}`,
+    `Seats: ${selectedSeats.join(', ')}`,
+    `Flight: ${selectedFlightDetails.airline} (${selectedFlightDetails.schedule})`,
+    '',
+    'Passenger details:',
     `Name: ${passengerDetails.name}`,
+    `ID/Passport: ${idNumber}`,
+    `Passenger type: ${passengerDetails.passengerType}`,
     `Phone: ${passengerDetails.phone}`,
     `Email: ${passengerDetails.email}`,
-    `ID/Passport: ${idNumber}`,
-    `Seats: ${selectedSeats.join(', ')}`,
-    `Special request: ${specialRequest}`
+    `Special requests: ${specialRequest}`
   ].join('\n');
   modalWhatsappButton.href = `https://wa.me/254755528986?text=${encodeURIComponent(message)}`;
   modalWhatsappButton.hidden = false;
