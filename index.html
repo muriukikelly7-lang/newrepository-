@@ -51,26 +51,56 @@
           <button class="booking-tab" role="tab" aria-selected="false" data-tab="status"><span>◷</span> Flight status</button>
         </div>
         <div class="trip-options flight-panel" role="group" aria-label="Trip type">
-          <button class="trip-pill active" type="button">Roundtrip</button>
-          <button class="trip-pill" type="button">One-way</button>
+          <button class="trip-pill active" type="button" data-trip-type="roundtrip" aria-pressed="true">Roundtrip</button>
+          <button class="trip-pill" type="button" data-trip-type="one-way" aria-pressed="false">One-way</button>
         </div>
         <div class="search-grid flight-panel">
           <label class="field location-field">
             <span>From</span>
-            <input type="text" list="airport-options" value="Nairobi" placeholder="Airport or country" aria-label="From airport or country">
+            <select aria-label="From airport or country">
+              <option value="Nairobi (NBO)" selected>Nairobi (NBO)</option>
+              <option value="Garissa (GAS)">Garissa (GAS)</option>
+              <option value="Mandera (NDE)">Mandera (NDE)</option>
+              <option value="Migori (MIG)">Migori (MIG)</option>
+              <option value="Kitale (KTL)">Kitale (KTL)</option>
+              <option value="Kisumu (KIS)">Kisumu (KIS)</option>
+              <option value="Eldoret (EDL)">Eldoret (EDL)</option>
+              <option value="Kakamega (GGM)">Kakamega (GGM)</option>
+              <option value="Mombasa (MBA)">Mombasa (MBA)</option>
+              <option value="Malindi (MYD)">Malindi (MYD)</option>
+              <option value="Ukunda (UKA)">Ukunda (UKA)</option>
+              <option value="Lodwar (LOK)">Lodwar (LOK)</option>
+              <option value="Lamu (LAU)">Lamu (LAU)</option>
+              <option value="Dar es Salaam (DAR)">Dar es Salaam (DAR)</option>
+            </select>
           </label>
           <button class="swap-button" type="button" aria-label="Swap departure and arrival">↔</button>
           <label class="field location-field">
             <span>To</span>
-            <input type="text" list="airport-options" value="Mombasa" placeholder="Airport or country" aria-label="To airport or country">
+            <select aria-label="To airport or country">
+              <option value="Nairobi (NBO)">Nairobi (NBO)</option>
+              <option value="Garissa (GAS)">Garissa (GAS)</option>
+              <option value="Mandera (NDE)">Mandera (NDE)</option>
+              <option value="Migori (MIG)">Migori (MIG)</option>
+              <option value="Kitale (KTL)">Kitale (KTL)</option>
+              <option value="Kisumu (KIS)">Kisumu (KIS)</option>
+              <option value="Eldoret (EDL)">Eldoret (EDL)</option>
+              <option value="Kakamega (GGM)">Kakamega (GGM)</option>
+              <option value="Mombasa (MBA)" selected>Mombasa (MBA)</option>
+              <option value="Malindi (MYD)">Malindi (MYD)</option>
+              <option value="Ukunda (UKA)">Ukunda (UKA)</option>
+              <option value="Lodwar (LOK)">Lodwar (LOK)</option>
+              <option value="Lamu (LAU)">Lamu (LAU)</option>
+              <option value="Dar es Salaam (DAR)">Dar es Salaam (DAR)</option>
+            </select>
           </label>
           <label class="field date-field">
             <span>Depart</span>
-            <input type="date" aria-label="Depart date">
+            <input type="date" aria-label="Depart date" required>
           </label>
           <label class="field date-field return-field">
             <span>Return</span>
-            <input type="date" value="2026-09-22" aria-label="Return date">
+            <input type="date" aria-label="Return date" required>
           </label>
           <div class="field passenger-field">
             <span>1 Adult, 0 Infant, 0 Children</span>
@@ -99,16 +129,6 @@
           </label>
           <button class="search-button" type="button">Find flights</button>
         </div>
-        <datalist id="airport-options">
-          <option value="Nairobi (NBO)"></option>
-          <option value="Mombasa (MBA)"></option>
-          <option value="Malindi (MYD)"></option>
-          <option value="Ukunda (UKA)"></option>
-          <option value="Lodwar (LOK)"></option>
-          <option value="Garissa (GAS)"></option>
-          <option value="Lamu (LAU)"></option>
-          <option value="Dar es Salaam (DAR)"></option>
-        </datalist>
         <div class="booking-panel" hidden>
           <div class="booking-panel-fields">
             <label class="field"><span>Booking reference</span><input type="text" placeholder="e.g. ABC123" aria-label="Booking reference"></label>
@@ -166,7 +186,7 @@
       <div class="section-title"><p class="eyebrow">Skyward Airlines</p><h2>Fares from Nairobi</h2></div>
       <div class="fare-list">
         <a class="fare-row" href="#book"><span>📍 Nairobi → Garissa</span><strong>KSh 7,000</strong></a>
-        <a class="fare-row" href="#book"><span>📍 Nairobi → Mandera</span><strong>KSh 6,000</strong></a>
+        <a class="fare-row" href="#book"><span>📍 Nairobi → Mandera</span><strong>KSh 7,000</strong></a>
         <a class="fare-row" href="#book"><span>📍 Nairobi → Homabay</span><strong>KSh 7,000</strong></a>
         <a class="fare-row" href="#book"><span>📍 Nairobi → Migori</span><strong>KSh 6,000</strong></a>
         <a class="fare-row" href="#book"><span>📍 Nairobi → Kitale</span><strong>KSh 6,000</strong></a>

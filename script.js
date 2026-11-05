@@ -11,9 +11,15 @@ const heroTitle = document.querySelector('.hero-content h1');
 const heroCopy = document.querySelector('.hero-copy');
 const heroEyebrow = document.querySelector('.hero-content .eyebrow');
 const heroCta = document.querySelector('.hero-cta');
+const departureDateInput = document.querySelector('.date-field input');
+const returnDateInput = document.querySelector('.return-field input');
+const returnField = document.querySelector('.return-field');
+const today = new Date();
+const todayDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+let tripType = 'roundtrip';
 const routeFares = {
   'nairobi|garissa': 7000,
-  'nairobi|mandera': 6000,
+  'nairobi|mandera': 7000,
   'nairobi|homabay': 7000,
   'nairobi|migori': 6000,
   'nairobi|kitale': 6000,
@@ -138,7 +144,7 @@ document.querySelectorAll('.panel-action').forEach((button) => {
 });
 
 document.querySelector('.swap-button').addEventListener('click', () => {
-  const fields = document.querySelectorAll('.location-field input');
+  const fields = document.querySelectorAll('.location-field select');
   const from = fields[0].value;
   fields[0].value = fields[1].value;
   fields[1].value = from;
@@ -175,18 +181,43 @@ for (let row = 1; row <= 8; row += 1) {
 }
 
 document.querySelector('.search-button').addEventListener('click', () => {
-  const locations = [...document.querySelectorAll('.location-field input')].map((input) => input.value.trim());
+  const locations = [...document.querySelectorAll('.location-field select')].map((select) => select.value.trim());
   if (!locations[0] || !locations[1]) {
     searchMessage.textContent = 'Enter a departure and arrival airport first.';
     return;
   }
-  const dates = [...document.querySelectorAll('.date-field input')].map((input) => input.value);
+  const departureDate = departureDateInput.value;
+  const returnDate = returnDateInput.value;
+  if (!departureDate) {
+    searchMessage.textContent = 'Select a departure date.';
+    departureDateInput.focus();
+    return;
+  }
+  if (departureDate < todayDate) {
+    searchMessage.textContent = 'Departure date cannot be in the past.';
+    departureDateInput.focus();
+    return;
+  }
+  if (tripType === 'roundtrip' && !returnDate) {
+    searchMessage.textContent = 'Select a return date for a roundtrip.';
+    returnDateInput.focus();
+    return;
+  }
+  if (tripType === 'roundtrip' && returnDate < departureDate) {
+    searchMessage.textContent = 'Return date must be on or after the departure date.';
+    returnDateInput.focus();
+    return;
+  }
   const fare = getRouteFare(locations[0], locations[1]);
   const passengerCount = getPassengerCount();
   const totalFare = fare * passengerCount;
   const formattedFare = `KSh ${totalFare.toLocaleString('en-KE')}`;
-  flightSummary.textContent = `${locations[0]} to ${locations[1]} for ${passengerCount} passenger${passengerCount === 1 ? '' : 's'}${dates[0] ? `, departing ${dates[0]}` : ''}${dates[1] ? ` and returning ${dates[1]}` : ''}.`;
+  flightSummary.textContent = `${tripType === 'roundtrip' ? 'Roundtrip' : 'One-way'}: ${locations[0]} to ${locations[1]} for ${passengerCount} passenger${passengerCount === 1 ? '' : 's'}, departing ${departureDate}${tripType === 'roundtrip' ? ` and returning ${returnDate}` : ''}.`;
   const resultPrices = [...document.querySelectorAll('.flight-result')].map((result) => result.querySelectorAll('strong')[2]);
+  const fareDescription = tripType === 'roundtrip' ? 'Round trip fare' : 'One-way fare';
+  document.querySelectorAll('.flight-result > div:nth-child(3) span').forEach((label) => {
+    label.textContent = fareDescription;
+  });
   resultPrices[0].textContent = `From ${formattedFare}`;
   resultPrices[1].textContent = `From KSh ${(totalFare + (1500 * passengerCount)).toLocaleString('en-KE')}`;
   flightMessage.textContent = '';
@@ -288,7 +319,7 @@ document.querySelector('.book-now-button').addEventListener('click', () => {
   document.querySelector('.booking-tab[data-tab="flights"]').click();
   const bookingShell = document.querySelector('.booking-shell');
   bookingShell.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  window.setTimeout(() => document.querySelector('.location-field input').focus(), 350);
+  window.setTimeout(() => document.querySelector('.location-field select').focus(), 350);
 });
 
 heroCta.addEventListener('click', (event) => {
@@ -296,7 +327,7 @@ heroCta.addEventListener('click', (event) => {
   hero.classList.add('booking-open');
   document.querySelector('.booking-tab[data-tab="flights"]').click();
   document.querySelector('.booking-shell').scrollIntoView({ behavior: 'smooth', block: 'center' });
-  window.setTimeout(() => document.querySelector('.location-field input').focus(), 350);
+  window.setTimeout(() => document.querySelector('.location-field select').focus(), 350);
 });
 
 const signupModal = document.querySelector('.signup-modal');
@@ -353,10 +384,24 @@ passengerPopover.querySelector('.passenger-accept').addEventListener('click', (e
   passengerPopover.hidden = true;
 });
 
+departureDateInput.min = todayDate;
+returnDateInput.min = todayDate;
+departureDateInput.addEventListener('change', () => {
+  returnDateInput.min = departureDateInput.value || todayDate;
+});
+
 tripPills.forEach((pill) => {
   pill.addEventListener('click', () => {
     tripPills.forEach((item) => item.classList.remove('active'));
     pill.classList.add('active');
-    document.querySelector('.return-field').hidden = pill.textContent.trim() === 'One-way';
+    tripType = pill.dataset.tripType;
+    pill.setAttribute('aria-pressed', 'true');
+    tripPills.forEach((item) => {
+      if (item !== pill) item.setAttribute('aria-pressed', 'false');
+    });
+    const isRoundtrip = tripType === 'roundtrip';
+    returnField.hidden = !isRoundtrip;
+    returnDateInput.required = isRoundtrip;
+    searchMessage.textContent = '';
   });
 });
