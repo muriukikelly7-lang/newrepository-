@@ -27,7 +27,8 @@ const routeFares = {
   'nairobi|eldoret': 7000,
   'nairobi|lodwar': 11500,
   'nairobi|mombasa': 7000,
-  'nairobi|kakamega': 7000
+  'nairobi|kakamega': 7000,
+  'lamu|nairobi': 15500
 };
 const heroSlides = [
   {
