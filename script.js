@@ -19,16 +19,21 @@ const todayDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStar
 let tripType = 'roundtrip';
 const routeFares = {
   'nairobi|garissa': 7000,
-  'nairobi|mandera': 7000,
-  'nairobi|homabay': 7000,
-  'nairobi|migori': 6000,
-  'nairobi|kitale': 6000,
+  'nairobi|migori': 6500,
+  'nairobi|kitale': 7000,
   'nairobi|kisumu': 6500,
   'nairobi|eldoret': 7000,
-  'nairobi|lodwar': 11500,
+  'nairobi|lodwar': 10000,
   'nairobi|mombasa': 7000,
-  'nairobi|kakamega': 7000,
-  'lamu|nairobi': 15500
+  'nairobi|kakamega': 7500,
+  'garissa|nairobi': 7000,
+  'migori|nairobi': 6500,
+  'kitale|nairobi': 7000,
+  'kisumu|nairobi': 6500,
+  'eldoret|nairobi': 7000,
+  'lodwar|nairobi': 10000,
+  'mombasa|nairobi': 7000,
+  'kakamega|nairobi': 7500
 };
 const heroSlides = [
   {
